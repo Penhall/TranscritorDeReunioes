@@ -1,0 +1,50 @@
+# Arquivos de áudio
+*.wav
+*.mp3
+*.ogg
+*.m4a
+
+# Diretórios de dados e saída
+data/audio/*
+output/*
+segments/
+
+# Ambiente virtual
+.venv/
+venv/
+ENV/
+
+# Arquivos Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Arquivos de distribuição / empacotamento
+dist/
+build/
+*.egg-info/
+
+# Arquivos de ambiente
+.env
+
+# Arquivos wav
+*.wav
+
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Mantenha os diretórios vazios com .gitkeep
+!data/audio/.gitkeep
+!output/.gitkeep
