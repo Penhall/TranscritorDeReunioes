@@ -66,7 +66,6 @@ def audio_toolkit(file_path: str, output_format: str = "wav", segment_duration: 
     except Exception as e:
         raise Exception(f"Erro no processamento do áudio: {str(e)}")
 
-
 @tool
 def transcribe_audio(file_path: str, output_dir: str = "./output") -> str:
     """
