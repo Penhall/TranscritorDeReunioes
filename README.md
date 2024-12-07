@@ -64,6 +64,7 @@ O whisper pode ser um pouco complicado de instalar. Vamos fazer passo a passo:
    2) Depois, instalar o whisper diretamente do repositório OpenAI:
  ```
       uv pip install git+https://github.com/openai/whisper.git
+      ```
 
    3) Instalar as Dependências Necessárias.  Instale o Whisper da OpenAI ou o SpeechRecognition com uma ferramenta como PyDub para lidar com arquivos de áudio.
       ``` 
