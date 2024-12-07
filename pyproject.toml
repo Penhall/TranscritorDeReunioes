@@ -3,7 +3,7 @@ name = "transcritor-reunioes"
 version = "0.1.0"
 description = "Um projeto para transcrever e analisar reuniões."
 authors = [
-    {name = "Filipe Maruyama Cardili", email = "filipecardili@gmail.com"}
+    {name = "Filipe Maruyama Cardili", email = "filipecardili@gmail.com"},
     {name = "Flavio Eustáquio de oliveira", email = "flaeuso@hotmail.com"},
     {name = "Gabriel Ribeiro", email = "gabrielribeiro@id.uff.br"},
     {name = "Reginaldo Santos", email = "reginaldo.santos@id.uff.br"},
@@ -15,7 +15,6 @@ dependencies = [
     "crewai>=0.83.0",
     "ffmpeg-python>=0.2.0",
     "langchain-openai>=0.2.11",
-    "faster-whisper>=0.10.0",
     "pydub>=0.25.1",
     "python-dotenv>=1.0.1",
     "torch>=2.0.0",

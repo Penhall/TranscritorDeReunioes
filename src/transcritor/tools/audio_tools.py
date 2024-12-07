@@ -5,13 +5,13 @@ from crewai_tools import tool
 import os
 
 @tool
-def audio_toolkit(file_path: str, output_format: str = "wav", segment_duration: int = 600) -> str:
+def audio_toolkit(file_path: str, output_format: str = "wav", segment_duration: int = 300) -> str:
     """
     Prepara o arquivo de áudio para transcrição.
     Args:
         file_path: Caminho para o arquivo de áudio
         output_format: Formato de saída (padrão: wav)
-        segment_duration: Duração de cada segmento em segundos (padrão: 600)
+        segment_duration: Duração de cada segmento em segundos (padrão: 300)
     Returns:
         str: Mensagem indicando sucesso e localização dos segmentos
     """
@@ -38,9 +38,10 @@ def audio_toolkit(file_path: str, output_format: str = "wav", segment_duration: 
         segment_count = 0
         for i in range(0, len(normalized_audio), segment_duration * 1000):
             segment = normalized_audio[i:i + segment_duration * 1000]
-            segment_path = output_dir / f"segment_{segment_count}.{output_format}"
+            # Formato padronizado: segment_XX.wav (com dois dígitos)
+            segment_path = output_dir / f"segment_{segment_count:02d}.{output_format}"
             segment.export(str(segment_path), format=output_format)
-            print(f"Segmento {segment_count} criado: {segment_path}")
+            print(f"Segmento {segment_count:02d} criado: {segment_path}")
             segment_count += 1
 
         return f"Áudio processado com sucesso. {segment_count} segmentos salvos em: {output_dir}"

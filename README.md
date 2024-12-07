@@ -30,7 +30,7 @@ Os seguintes autores contribuíram para o desenvolvimento deste projeto:
 ## Recursos
 
 - 🎵 Processamento automático de arquivos de áudio
-- 📝 Transcrição usando modelo Faster Whisper
+- 🗒 Transcrição usando modelo Faster Whisper
 - 👥 Identificação automática de palestrantes
 - ✍️ Revisão e correção do texto transcrito
 - 📊 Geração de resumos e insights
@@ -72,17 +72,12 @@ pip install -r requirements.txt
    OPENAI_API_KEY=sua-chave-aqui
    ```
 
-4. Instale o modelo Faster Whisper:
+4. Instale as dependências adicionais:
 ```bash
-pip install faster-whisper
+pip install crewai dotenv langchain-openai faster-whisper
 ```
 
-5. Instale as dependências adicionais:
-```bash
-pip install crewai dotenv langchain-openai
-```
-
-6. Certifique-se de que o FFmpeg está instalado e configurado no PATH do sistema.
+5. Certifique-se de que o FFmpeg está instalado e configurado no PATH do sistema.
 
 ## Estrutura do Projeto
 

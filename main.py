@@ -1,5 +1,6 @@
 ﻿import sys
 from pathlib import Path
+import shutil
 
 # Adicionar o diretório src ao PYTHONPATH
 BASE_DIR = Path(__file__).resolve().parent
@@ -26,8 +27,6 @@ def initialize_model():
         print("Verifique se sua OPENAI_API_KEY está configurada corretamente no arquivo .env")
         sys.exit(1)
 
-
-
 def create_crew(agents_dict, tasks_dict):
     """Cria a crew com os agentes e tarefas"""
     return Crew(
@@ -36,52 +35,66 @@ def create_crew(agents_dict, tasks_dict):
         process=Process.sequential
     )
 
+def cleanup_segments(audio_dir: Path) -> None:
+    """
+    Remove o diretório de segmentos e seus arquivos.
+    Args:
+        audio_dir: Diretório base de áudio
+    """
+    try:
+        segments_dir = audio_dir / "segments"
+        if segments_dir.exists():
+            shutil.rmtree(segments_dir)
+            print(f"\nDiretório de segmentos removido com sucesso: {segments_dir}")
+    except Exception as e:
+        print(f"\nErro ao remover diretório de segmentos: {e}")
+
 def main():
-    # Inicialização
-    gpt_model = initialize_model()
-    agents = create_agents(gpt_model)
-    tasks = create_tasks(agents)
-    crew = create_crew(agents, tasks)
-    
-    # Configurar diretórios
-    audio_dir = BASE_DIR / "data" / "audio"
-    audio_dir.mkdir(parents=True, exist_ok=True)
-    
-    output_dir = BASE_DIR / "output"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Listar arquivos WAV
-    arquivos_wav = list(audio_dir.glob("*.wav"))
-    
-    if not arquivos_wav:
-        print(f"\nNenhum arquivo .wav encontrado em: {audio_dir}")
-        print("Coloque seus arquivos de áudio WAV neste diretório.")
-        sys.exit(1)
-    
-    # Mostrar arquivos disponíveis
-    print("\nArquivos disponíveis:")
-    for i, arquivo in enumerate(arquivos_wav, 1):
-        print(f"{i}. {arquivo.name}")
-    
-    # Seleção do arquivo
-    escolha = input("\nEscolha o número do arquivo (Enter para o primeiro): ").strip()
-    
     try:
-        if not escolha:
+        # Inicialização
+        gpt_model = initialize_model()
+        agents = create_agents(gpt_model)
+        tasks = create_tasks(agents)
+        crew = create_crew(agents, tasks)
+        
+        # Configurar diretórios
+        audio_dir = BASE_DIR / "data" / "audio"
+        audio_dir.mkdir(parents=True, exist_ok=True)
+        
+        output_dir = BASE_DIR / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Listar arquivos WAV
+        arquivos_wav = list(audio_dir.glob("*.wav"))
+        
+        if not arquivos_wav:
+            print(f"\nNenhum arquivo .wav encontrado em: {audio_dir}")
+            print("Coloque seus arquivos de áudio WAV neste diretório.")
+            sys.exit(1)
+        
+        # Mostrar arquivos disponíveis
+        print("\nArquivos disponíveis:")
+        for i, arquivo in enumerate(arquivos_wav, 1):
+            print(f"{i}. {arquivo.name}")
+        
+        # Seleção do arquivo
+        escolha = input("\nEscolha o número do arquivo (Enter para o primeiro): ").strip()
+        
+        try:
+            if not escolha:
+                arquivo_selecionado = arquivos_wav[0]
+            else:
+                indice = int(escolha) - 1
+                arquivo_selecionado = arquivos_wav[indice]
+        except (ValueError, IndexError):
+            print("Escolha inválida. Usando o primeiro arquivo.")
             arquivo_selecionado = arquivos_wav[0]
-        else:
-            indice = int(escolha) - 1
-            arquivo_selecionado = arquivos_wav[indice]
-    except (ValueError, IndexError):
-        print("Escolha inválida. Usando o primeiro arquivo.")
-        arquivo_selecionado = arquivos_wav[0]
-    
-    # Garantir caminho absoluto
-    caminho_arquivo = str(arquivo_selecionado.resolve())
-    print(f"\nProcessando: {arquivo_selecionado.name}")
-    
-    # Executar o processo
-    try:
+        
+        # Garantir caminho absoluto
+        caminho_arquivo = str(arquivo_selecionado.resolve())
+        print(f"\nProcessando: {arquivo_selecionado.name}")
+        
+        # Executar o processo
         print(f"Iniciando processamento do arquivo: {caminho_arquivo}")
         
         result = crew.kickoff(
@@ -92,9 +105,14 @@ def main():
         )
         print("\nProcessamento concluído com sucesso.")
         print(result)
+
     except Exception as e:
         print(f"\nErro durante a execução: {e}")
         sys.exit(1)
+    
+    finally:
+        # Limpar segmentos no final da execução, independentemente do resultado
+        cleanup_segments(audio_dir)
 
 if __name__ == "__main__":
     main()
