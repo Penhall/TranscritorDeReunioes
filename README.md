@@ -53,6 +53,26 @@ uv pip install -r requirements.txt
    OPENAI_API_KEY=sua-chave-aqui
    ```
 
+
+5. Configure o Whisper.
+O whisper pode ser um pouco complicado de instalar. Vamos fazer passo a passo:
+
+   1) Primeiro, vamos garantir que você tem o Torch instalado (pré-requisito do whisper):
+   
+         uv pip install torch torchvision torchaudio
+   2) Depois, instalar o whisper diretamente do repositório OpenAI:
+
+      uv pip install git+https://github.com/openai/whisper.git
+
+ou
+   3) Instalar as Dependências Necessárias
+
+      Instale o Whisper da OpenAI ou o SpeechRecognition com uma ferramenta como PyDub para lidar com arquivos de áudio.
+      
+      pip install openai-whisper pydub SpeechRecognition
+
+
+
 ## Estrutura do Projeto
 
 ```
