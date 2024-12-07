@@ -1,8 +1,18 @@
 # Versão 4 - Personalidades Diversas
+from crewai import Agent
+from langchain_openai import ChatOpenAI
+
+# Importando tools da nova estrutura
+from transcritor.tools.audio_tools import audio_toolkit
+from transcritor.tools.transcription_tools import transcribe_audio
+from transcritor.tools.speaker_tools import speaker_identification_tool
+from transcritor.tools.text_tools import text_editing_tool
+from transcritor.tools.report_tools import report_generation_tool
+
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Áudio',
+            role='Preparador de Ýudio',
             goal='Otimizar qualidade do áudio através de processamento meticuloso e sistemático, seguindo padrões rigorosos de qualidade e documentando cada etapa do processo',
             backstory="""Carlos, 65 anos, casado. Engenheiro de áudio veterano com 40 anos de experiência em estúdios. 
             Metódico e perfeccionista, desenvolveu sua própria metodologia de trabalho ao longo dos anos. 

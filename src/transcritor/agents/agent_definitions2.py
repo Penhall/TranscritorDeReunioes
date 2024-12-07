@@ -1,8 +1,18 @@
 # Versão 2 - Intermediária
+from crewai import Agent
+from langchain_openai import ChatOpenAI
+
+# Importando tools da nova estrutura
+from transcritor.tools.audio_tools import audio_toolkit
+from transcritor.tools.transcription_tools import transcribe_audio
+from transcritor.tools.speaker_tools import speaker_identification_tool
+from transcritor.tools.text_tools import text_editing_tool
+from transcritor.tools.report_tools import report_generation_tool
+
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Áudio',
+            role='Preparador de Ýudio',
             goal='Otimizar a qualidade do áudio através de normalização, segmentação e redução de ruídos, garantindo a melhor entrada possível para transcrição',
             backstory="Engenheiro de áudio com 15 anos de experiência em processamento digital de sinais e otimização de qualidade sonora para sistemas de reconhecimento de fala",
             temperature=0.3,

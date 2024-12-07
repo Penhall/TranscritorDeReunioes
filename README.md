@@ -5,7 +5,7 @@ Aplicação Python para transcrição automática de reuniões com identificaç�
 ## Recursos
 
 - 🎵 Processamento automático de arquivos de áudio
-- 📝 Transcrição usando modelo Whisper
+- 📝 Transcrição usando modelo Faster Whisper
 - 👥 Identificação automática de palestrantes
 - ✍️ Revisão e correção do texto transcrito
 - 📊 Geração de resumos e insights
@@ -26,57 +26,47 @@ git clone https://github.com/seu-usuario/TranscritorDeReunioes.git
 cd TranscritorDeReunioes
 ```
 
-2. Instale o uv (gerenciador de pacotes):
+2. Configure o ambiente virtual e instale as dependências:
 ```bash
-# No Windows (PowerShell como administrador):
-(Invoke-WebRequest -Uri "https://astral.sh/uv/install.ps1" -UseBasicParsing).Content | powershell -c -
-
-# No Linux/MacOS:
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-3. Configure o ambiente virtual e instale as dependências:
-```bash
-uv venv
 # Windows:
+python -m venv .venv
 .venv\Scripts\activate
+
 # Linux/MacOS:
+python3 -m venv .venv
 source .venv/bin/activate
 
-uv pip install -r requirements.txt
+# Instale as dependências:
+pip install -r requirements.txt
 ```
 
-4. Configure as variáveis de ambiente:
+3. Configure as variáveis de ambiente:
    - Crie um arquivo `.env` na raiz do projeto
    - Adicione sua chave da API OpenAI:
    ```
    OPENAI_API_KEY=sua-chave-aqui
    ```
 
-5. Configure o Whisper.
-O whisper pode ser um pouco complicado de instalar. Vamos fazer passo a passo:
+4. Instale o modelo Faster Whisper:
+```bash
+pip install faster-whisper
+```
 
-   1) Primeiro, vamos garantir que você tem o Torch instalado (pré-requisito do whisper):
-   ```bash
-   uv pip install torch torchvision torchaudio
-   ```
-   2) Depois, instalar o whisper diretamente do repositório OpenAI:
-   ```bash
-   uv pip install git+https://github.com/openai/whisper.git  
-   ```
-   3) Instalar as Dependências Necessárias. Instale o Whisper da OpenAI ou o SpeechRecognition com uma ferramenta como PyDub para lidar com arquivos de áudio.
-   ```bash
-   pip install openai-whisper pydub SpeechRecognition
-   ```
+5. Instale as dependências adicionais:
+```bash
+pip install crewai dotenv langchain-openai
+```
+
+6. Certifique-se de que o FFmpeg está instalado e configurado no PATH do sistema.
 
 ## Estrutura do Projeto
 
 ```
 TranscritorDeReunioes/
+├── src/                # Código-fonte principal
 ├── tools/              # Ferramentas modulares
 ├── agents/             # Definições dos agentes
 ├── tasks/              # Definições das tarefas
-├── tests/              # Testes automatizados
 ├── data/
 │   └── audio/         # Diretório para arquivos de áudio
 ├── output/            # Diretório para arquivos gerados
@@ -86,14 +76,14 @@ TranscritorDeReunioes/
 
 ## Uso
 
-1. Coloque seu arquivo de áudio (.wav) na pasta `data/audio/`
+1. Coloque seus arquivos de áudio (.wav) na pasta `data/audio/`.
 
-2. Execute o script:
+2. Execute o script principal:
 ```bash
 python main.py
 ```
 
-3. Selecione o arquivo quando solicitado
+3. O programa listará os arquivos disponíveis na pasta e permitirá que você escolha qual processar.
 
 4. Os resultados serão salvos na pasta `output/`:
    - `transcricao.md`: Transcrição completa
@@ -106,24 +96,21 @@ Para executar os testes:
 pytest
 ```
 
-## Sincronização com Git
-
-- Os arquivos de áudio (.wav) não são sincronizados com o Git
-- Mantenha seus arquivos de áudio em backup local
-- Não commit arquivos sensíveis ou chaves de API
-
 ## Solução de Problemas
 
-1. Erro de API OpenAI:
-   - Verifique se a chave está corretamente configurada no arquivo `.env`
-   - Verifique se sua chave tem créditos disponíveis
+1. **Erro de API OpenAI:**
+   - Verifique se a chave está corretamente configurada no arquivo `.env`.
+   - Verifique se sua chave tem créditos disponíveis.
 
-2. Erro de FFmpeg:
-   - Certifique-se que o FFmpeg está instalado e acessível no PATH do sistema
+2. **Erro de FFmpeg:**
+   - Certifique-se de que o FFmpeg está instalado e acessível no PATH do sistema.
 
-3. Erro de memória:
-   - Tente com arquivos de áudio menores
-   - Verifique a disponibilidade de RAM
+3. **Erro de memória:**
+   - Tente com arquivos de áudio menores.
+   - Verifique a disponibilidade de RAM.
+
+4. **Erro de dependências:**
+   - Garanta que o ambiente virtual está ativado e que todas as dependências foram instaladas corretamente.
 
 ## Contribuindo
 
@@ -140,6 +127,7 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 ## Créditos
 
 Desenvolvido utilizando:
-- OpenAI Whisper para transcrição
-- CrewAI para orquestração de agentes
+- Faster Whisper para transcrição
+- CrewAI para orquestração de agentes e tarefas
 - OpenAI GPT-4 para processamento de linguagem natural
+

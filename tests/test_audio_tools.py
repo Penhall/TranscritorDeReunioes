@@ -1,6 +1,7 @@
 import pytest
+from pathlib import Path
 from crewai_tools import Tool
-from tools.audio_tools import audio_toolkit
+from transcritor.tools.audio_tools import audio_toolkit
 
 def test_audio_toolkit_file_not_found():
     """Testa se a função levanta exceção quando arquivo não existe"""

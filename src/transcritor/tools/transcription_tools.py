@@ -1,20 +1,22 @@
+# -*- coding: utf-8 -*-
+
 from pathlib import Path
-import whisper
+from faster_whisper import WhisperModel
 from crewai_tools import tool
 
 @tool
 def transcribe_audio(file_path: str, output_dir: str = "./output") -> dict:
     """
-    Transcreve um arquivo de áudio para texto usando Whisper e salva em Markdown.
+    Transcreve um arquivo de audio para texto usando Faster Whisper.
     Args:
-        file_path: Caminho do arquivo de áudio original.
-        output_dir: Diretório onde o arquivo será salvo.
+        file_path: Caminho do arquivo de audio original.
+        output_dir: Diretorio onde o arquivo sera salvo.
     Returns:
-        dict: Dicionário contendo o caminho do arquivo e o texto transcrito.
+        dict: Dicionario contendo o caminho do arquivo e o texto transcrito.
     """
     try:
-        print("Inicializando modelo Whisper...")
-        model = whisper.load_model("base")
+        print("Inicializando modelo Faster Whisper...")
+        model = WhisperModel("base", device="cpu", compute_type="int8")
         
         segments_dir = Path(file_path).parent / "segments"
         segments = sorted(segments_dir.glob("segment_*.wav"))
@@ -22,31 +24,29 @@ def transcribe_audio(file_path: str, output_dir: str = "./output") -> dict:
         if not segments:
             return {"error": f"Nenhum segmento encontrado em: {segments_dir}"}
         
-        print(f"Iniciando transcrição de {len(segments)} segmentos...")
+        print(f"Iniciando transcricao de {len(segments)} segmentos...")
         transcribed_texts = []
         
         for i, segment in enumerate(segments, 1):
             print(f"Transcrevendo segmento {i}/{len(segments)}: {segment.name}")
-            result = model.transcribe(str(segment))
-            transcribed_texts.append(result["text"].strip())
+            segments, info = model.transcribe(str(segment))
+            segment_text = " ".join([seg.text for seg in segments])
+            transcribed_texts.append(segment_text.strip())
             print(f"Segmento {i} transcrito com sucesso")
 
-        # Combinar resultados
         full_transcription = " ".join(transcribed_texts)
         
-        # Salvar no arquivo Markdown
         output_path = Path(output_dir) / "transcricao.md"
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(full_transcription)
         
-        print(f"Transcrição salva em: {output_path}")
+        print(f"Transcricao salva em: {output_path}")
         
-        # Excluir segmentos
         for segment in segments:
             segment.unlink()
         segments_dir.rmdir()
-        print("Segmentos excluídos com sucesso.")
+        print("Segmentos excluidos com sucesso.")
 
         return {
             "file_path": str(output_path),
@@ -56,6 +56,6 @@ def transcribe_audio(file_path: str, output_dir: str = "./output") -> dict:
 
     except Exception as e:
         return {
-            "error": f"Erro na transcrição: {str(e)}",
+            "error": f"Erro na transcricao: {str(e)}",
             "success": False
         }

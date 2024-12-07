@@ -2,6 +2,8 @@ from crewai import Task
 from typing import Dict
 from crewai import Agent
 
+# Não precisa importar tools diretamente, pois usa via agents
+
 def create_tasks(agents: Dict[str, Agent]) -> dict:
     """
     Cria e retorna todas as tarefas do sistema.

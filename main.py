@@ -1,19 +1,21 @@
-﻿from dotenv import load_dotenv
+﻿import sys
+from pathlib import Path
+
+# Adicionar o diretório src ao PYTHONPATH
+BASE_DIR = Path(__file__).resolve().parent
+sys.path.append(str(BASE_DIR / "src"))
+
+from dotenv import load_dotenv
 from crewai import Crew, Process
 from langchain_openai import ChatOpenAI
 import os
-import sys
-from pathlib import Path
 
 # Importando as definições modularizadas
-from agents.agent_definitions import create_agents
-from tasks.task_definitions import create_tasks
+from transcritor.agents.agent_definitions import create_agents
+from transcritor.tasks.task_definitions import create_tasks
 
 # Carregar as variáveis de ambiente do arquivo .env
 load_dotenv()
-
-# Obter diretório base da aplicação
-BASE_DIR = Path(__file__).resolve().parent
 
 def initialize_model():
     """Inicializa o modelo OpenAI"""
@@ -23,6 +25,8 @@ def initialize_model():
         print(f"Erro ao inicializar o modelo OpenAI: {e}")
         print("Verifique se sua OPENAI_API_KEY está configurada corretamente no arquivo .env")
         sys.exit(1)
+
+
 
 def create_crew(agents_dict, tasks_dict):
     """Cria a crew com os agentes e tarefas"""

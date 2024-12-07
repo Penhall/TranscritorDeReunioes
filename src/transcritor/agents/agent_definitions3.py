@@ -1,8 +1,17 @@
-# Versão 3 - Altamente Sofisticada
+# Versão 3 - Altamente Sofisticadafrom crewai import Agent
+from langchain_openai import ChatOpenAI
+
+# Importando tools da nova estrutura
+from transcritor.tools.audio_tools import audio_toolkit
+from transcritor.tools.transcription_tools import transcribe_audio
+from transcritor.tools.speaker_tools import speaker_identification_tool
+from transcritor.tools.text_tools import text_editing_tool
+from transcritor.tools.report_tools import report_generation_tool
+
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Áudio',
+            role='Preparador de Ýudio',
             goal='Maximizar a qualidade e inteligibilidade do áudio através de técnicas avançadas de processamento de sinal, incluindo normalização adaptativa, redução seletiva de ruído e segmentação inteligente baseada em silêncios naturais e mudanças de falantes',
             backstory="PhD em Processamento Digital de Sinais com especialização em recuperação de áudio forense. Desenvolvedor de algoritmos proprietários para otimização de áudio em sistemas de reconhecimento de fala. Possui experiência internacional em projetos de restauração de áudio histórico e processamento em tempo real para broadcasters.",
             temperature=0.3,

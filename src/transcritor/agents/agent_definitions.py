@@ -1,11 +1,12 @@
 from crewai import Agent
 from langchain_openai import ChatOpenAI
-from tools.audio_tools import audio_toolkit
-from tools.transcription_tools import transcribe_audio
-from tools.speaker_tools import speaker_identification_tool
-from tools.text_tools import text_editing_tool
-from tools.report_tools import report_generation_tool
 
+# Importando tools da nova estrutura
+from transcritor.tools.audio_tools import audio_toolkit
+from transcritor.tools.transcription_tools import transcribe_audio
+from transcritor.tools.speaker_tools import speaker_identification_tool
+from transcritor.tools.text_tools import text_editing_tool
+from transcritor.tools.report_tools import report_generation_tool
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     """
     Cria e retorna todos os agentes do sistema.
@@ -16,7 +17,7 @@ def create_agents(gpt_model: ChatOpenAI) -> dict:
     """
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Áudio',
+            role='Preparador de Ýudio',
             goal='Preparar o arquivo de áudio para transcrição, incluindo normalização e segmentação',
             backstory="Especialista em manipulação de áudio, com habilidade para melhorar a qualidade e preparar o arquivo para processamento.",
             verbose=True,

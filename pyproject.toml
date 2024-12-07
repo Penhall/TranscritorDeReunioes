@@ -1,7 +1,50 @@
 [project]
-name = "transcritordereunioes"
+name = "transcritor-reunioes"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.12"
-dependencies = []
+description = "Um projeto para transcrever e analisar reuniões."
+authors = [
+    {name = "Reginaldo Santos", email = "penhall@gmail.com"}
+]
+license = "MIT"
+
+dependencies = [
+    "crewai>=0.83.0",
+    "ffmpeg-python>=0.2.0",
+    "langchain-openai>=0.2.11",
+    "faster-whisper>=0.10.0",
+    "pydub>=0.25.1",
+    "python-dotenv>=1.0.1",
+    "torch>=2.0.0",
+    "pathlib>=1.0.1",
+    "speechrecognition>=3.11.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/transcritor"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "ruff>=0.1.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra -q --cov=src"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3

@@ -1,8 +1,18 @@
 # Versão 5 - Equipe Humorística
+from crewai import Agent
+from langchain_openai import ChatOpenAI
+
+# Importando tools da nova estrutura
+from transcritor.tools.audio_tools import audio_toolkit
+from transcritor.tools.transcription_tools import transcribe_audio
+from transcritor.tools.speaker_tools import speaker_identification_tool
+from transcritor.tools.text_tools import text_editing_tool
+from transcritor.tools.report_tools import report_generation_tool
+
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Áudio',
+            role='Preparador de Ýudio',
             goal='Otimizar áudio mantendo a essência cômica e timing das falas',
             backstory="""Marcelo "DJ Fonoaudiólogo" Marrom, ex-técnico de som de programa de pegadinhas. 
             Especialista em captar o timing perfeito de uma piada. Conhecido por dizer que "áudio ruim é 

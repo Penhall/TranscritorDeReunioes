@@ -1,8 +1,17 @@
-# Versão 1 - Básica com temperature
+# Versão 1 - Básica com temperaturefrom crewai import Agent
+from langchain_openai import ChatOpenAI
+
+# Importando tools da nova estrutura
+from transcritor.tools.audio_tools import audio_toolkit
+from transcritor.tools.transcription_tools import transcribe_audio
+from transcritor.tools.speaker_tools import speaker_identification_tool
+from transcritor.tools.text_tools import text_editing_tool
+from transcritor.tools.report_tools import report_generation_tool
+
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Áudio',
+            role='Preparador de Ýudio',
             goal='Processar e preparar arquivos de áudio para transcrição eficiente',
             backstory="Especialista em processamento de áudio com foco em qualidade de som",
             temperature=0.3,  # Baixa - precisão no processamento
