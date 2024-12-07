@@ -3,7 +3,11 @@ name = "transcritor-reunioes"
 version = "0.1.0"
 description = "Um projeto para transcrever e analisar reuniões."
 authors = [
-    {name = "Reginaldo Santos", email = "penhall@gmail.com"}
+    {name = "Filipe Maruyama Cardili", email = "filipecardili@gmail.com"}
+    {name = "Flavio Eustáquio de oliveira", email = "flaeuso@hotmail.com"},
+    {name = "Gabriel Ribeiro", email = "gabrielribeiro@id.uff.br"},
+    {name = "Reginaldo Santos", email = "reginaldo.santos@id.uff.br"},
+    {name = "Wemerson G. Souza", email = "wemerson.souza@wganalytics.com.br"}
 ]
 license = "MIT"
 

@@ -2,6 +2,31 @@
 
 Aplicação Python para transcrição automática de reuniões com identificação de palestrantes, geração de resumos e insights. Desenvolvido como parte de projeto acadêmico.
 
+## Autores
+
+Os seguintes autores contribuíram para o desenvolvimento deste projeto:
+
+- **Nome**: Filipe Maruyama Cardili  
+  **Email**: filipe.cardili@gmail.com
+
+- **Nome**: Flavio Eustáquio de Oliveira  
+  **Email**: flaeuso@hotmail.com
+
+- **Nome**: Reginaldo Santos  
+  **Email**: reginaldo.santos@id.uff.br
+
+- **Nome**: Wemerson G. Souza  
+  **Email**: wemerson.souza@wganalytics.com.br
+
+---
+
+## Informações do Curso
+
+**Nome do curso**: ePrompts – Engenharia de Prompts  
+**Data**: Dezembro 2024
+
+---
+
 ## Recursos
 
 - 🎵 Processamento automático de arquivos de áudio
