@@ -20,7 +20,7 @@ load_dotenv()
 def initialize_model():
     """Inicializa o modelo OpenAI"""
     try:
-        return ChatOpenAI(model_name='gpt-4-mini')
+        return ChatOpenAI(model_name='gpt-4')
     except Exception as e:
         print(f"Erro ao inicializar o modelo OpenAI: {e}")
         print("Verifique se sua OPENAI_API_KEY está configurada corretamente no arquivo .env")

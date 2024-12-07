@@ -3,6 +3,7 @@ from crewai_tools import tool
 
 @tool
 def report_generation_tool(summary: str, insights: str = "", output_dir: str = "./output") -> str:
+    
     """
     Gera um relatório formatado da transcrição e salva no diretório output.
     Args:
