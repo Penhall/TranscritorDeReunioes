@@ -8,6 +8,7 @@ from transcritor.tools.transcription_tools import transcribe_audio
 from transcritor.tools.speaker_tools import speaker_identification_tool
 from transcritor.tools.text_tools import text_editing_tool
 from transcritor.tools.report_tools import report_generation_tool
+from transcritor.tools.toxic_tools import analyze_toxicity
 
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
@@ -47,6 +48,17 @@ def create_agents(gpt_model: ChatOpenAI) -> dict:
             llm=gpt_model
         ),
         
+        'analisador_toxicidade': Agent(
+            role='Analisador de Toxicidade',
+            goal='Analisar o conteúdo transcrito em busca de linguagem tóxica ou inapropriada',
+            backstory="""Especialista em análise de discurso e moderação de conteúdo. 
+            Utiliza tecnologia avançada para identificar e classificar linguagem potencialmente 
+            tóxica ou prejudicial, fornecendo recomendações para melhorar a comunicação.""",
+            tools=[analyze_toxicity],
+            temperature=0.4,  # Baixa temperatura para análises mais precisas
+            llm=gpt_model
+        ),
+        
         'resumidor': Agent(
             role='Resumidor',
             goal='Criar resumos que capturam os pontos principais, decisões e ações definidas, organizando as informações em uma estrutura clara e acessível',
@@ -71,5 +83,7 @@ def create_agents(gpt_model: ChatOpenAI) -> dict:
             tools=[report_generation_tool],
             llm=gpt_model
         )
+        
+
     }
     return agents

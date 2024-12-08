@@ -2,7 +2,7 @@ from crewai import Task
 from typing import Dict
 from crewai import Agent
 
-# N�o precisa importar tools diretamente, pois usa via agents
+# N�o precisa importar tools diretamente, pois usa via agents
 
 def create_tasks(agents: Dict[str, Agent]) -> dict:
     """
@@ -55,6 +55,12 @@ def create_tasks(agents: Dict[str, Agent]) -> dict:
             description="Analisar o conteúdo e extrair insights relevantes.",
             expected_output="Lista de insights e análises.",
             agent=agents['gerador_insights']
+        ),
+        
+        'analise_toxicidade': Task(
+            description="Analisar o texto transcrito em busca de linguagem tóxica ou inapropriada, fornecendo relatório detalhado.",
+            expected_output="Relatório de análise de toxicidade com recomendações.",
+            agent=agents['analisador_toxicidade']
         ),
         
         'relatorio': Task(
