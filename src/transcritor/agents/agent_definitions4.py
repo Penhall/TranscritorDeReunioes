@@ -13,7 +13,7 @@ from transcritor.tools.toxic_tools import analyze_toxicity
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Ýudio',
+            role='Preparador de Áudio',
             goal='Otimizar qualidade do áudio através de processamento meticuloso e sistemático, seguindo padrões rigorosos de qualidade e documentando cada etapa do processo',
             backstory="""Carlos, 65 anos, casado. Engenheiro de áudio veterano com 40 anos de experiência em estúdios. 
             Metódico e perfeccionista, desenvolveu sua própria metodologia de trabalho ao longo dos anos. 

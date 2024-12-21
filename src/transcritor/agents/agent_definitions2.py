@@ -13,7 +13,7 @@ from transcritor.tools.toxic_tools import analyze_toxicity
 def create_agents(gpt_model: ChatOpenAI) -> dict:
     agents = {
         'preparador_audio': Agent(
-            role='Preparador de Ýudio',
+            role='Preparador de Áudio',
             goal='Otimizar a qualidade do áudio através de normalização, segmentação e redução de ruídos, garantindo a melhor entrada possível para transcrição',
             backstory="Engenheiro de áudio com 15 anos de experiência em processamento digital de sinais e otimização de qualidade sonora para sistemas de reconhecimento de fala",
             temperature=0.3,

@@ -1,4 +1,4 @@
-# Versão 1 - Básica com temperaturefrom crewai import Agent
+from crewai import Agent
 from langchain_openai import ChatOpenAI
 
 # Importando tools da nova estrutura
@@ -10,78 +10,88 @@ from transcritor.tools.report_tools import report_generation_tool
 from transcritor.tools.toxic_tools import analyze_toxicity
 
 def create_agents(gpt_model: ChatOpenAI) -> dict:
+    """
+    Cria e retorna todos os agentes do sistema.
+    Args:
+        gpt_model: Instância do modelo GPT configurado
+    Returns:
+        dict: Dicionário com todos os agentes
+    """
     agents = {
         'preparador_audio': Agent(
             role='Preparador de Áudio',
-            goal='Processar e preparar arquivos de áudio para transcrição eficiente',
-            backstory="Especialista em processamento de áudio com foco em qualidade de som",
-            temperature=0.3,  # Baixa - precisão no processamento
+            goal='Preparar o arquivo de áudio para transcrição, incluindo normalização e segmentação',
+            backstory="Especialista em manipulação de áudio, com habilidade para melhorar a qualidade e preparar o arquivo para processamento.",
+            verbose=True,
             tools=[audio_toolkit],
             llm=gpt_model
         ),
         
         'transcritor': Agent(
             role='Transcritor',
-            goal='Transformar áudio em texto com alta precisão e clareza',
-            backstory="Especialista em reconhecimento de fala e transcrição automática",
-            temperature=0.2,  # Muito baixa - máxima precisão
+            goal='Converter áudio em texto com precisão e extrair o conteúdo transcrito',
+            backstory="Especialista em transformar áudio em texto, com foco em qualidade e extração precisa do conteúdo.",
+            verbose=True,
             tools=[transcribe_audio],
+            allow_delegation=False,
             llm=gpt_model
         ),
         
         'identificador_palestrantes': Agent(
             role='Identificador de Palestrantes',
-            goal='Identificar e marcar diferentes vozes na transcrição',
-            backstory="Especialista em análise de padrões de fala e reconhecimento de vozes",
-            temperature=0.4,  # Média-baixa - equilíbrio
+            goal='Identificar e diferenciar os palestrantes no texto transcrito',
+            backstory="Especialista em análise de diálogo e identificação de palestrantes em transcrições.",
+            verbose=True,
             tools=[speaker_identification_tool],
             llm=gpt_model
         ),
         
         'revisor_texto': Agent(
             role='Revisor de Texto',
-            goal='Aprimorar a qualidade e clareza do texto transcrito',
-            backstory="Especialista em revisão e formatação de textos",
-            temperature=0.3,  # Baixa - precisão na revisão
+            goal='Revisar e corrigir o texto transcrito',
+            backstory="Especialista em revisão textual, garantindo clareza e correção.",
+            verbose=True,
             tools=[text_editing_tool],
             llm=gpt_model
         ),
-        
-         'analisador_toxicidade': Agent(
+             
+        'analisador_toxicidade': Agent(
             role='Analisador de Toxicidade',
             goal='Analisar o conteúdo transcrito em busca de linguagem tóxica ou inapropriada',
             backstory="""Especialista em análise de discurso e moderação de conteúdo. 
             Utiliza tecnologia avançada para identificar e classificar linguagem potencialmente 
             tóxica ou prejudicial, fornecendo recomendações para melhorar a comunicação.""",
             tools=[analyze_toxicity],
-            temperature=0.3,  # Baixa temperatura para análises mais precisas
+            temperature=0.2,  # Baixa temperatura para análises mais precisas
             llm=gpt_model
-        ),
+        ),        
         
         'resumidor': Agent(
             role='Resumidor',
-            goal='Criar resumos concisos e informativos',
-            backstory="Especialista em síntese de informações e análise textual",
-            temperature=0.6,  # Média-alta - criatividade na síntese
+            goal='Criar resumo detalhado do conteúdo transcrito',
+            backstory="Especialista em análise textual e síntese de informações.",
+            verbose=True,
             llm=gpt_model
         ),
         
         'gerador_insights': Agent(
             role='Gerador de Insights',
-            goal='Extrair padrões e informações relevantes do texto',
-            backstory="Especialista em análise de dados e identificação de padrões",
-            temperature=0.7,  # Alta - criatividade nos insights
+            goal='Analisar o conteúdo e identificar padrões importantes',
+            backstory="Especialista em análise de dados qualitativos e identificação de tendências.",
+            verbose=True,
             llm=gpt_model
         ),
         
         'formulador_relatorios': Agent(
             role='Formulador de Relatórios',
-            goal='Criar relatórios estruturados e informativos',
-            backstory="Especialista em documentação e formatação de relatórios",
-            temperature=0.4,  # Média-baixa - equilíbrio
+            goal='Criar relatório final organizado e completo',
+            backstory="Especialista em formatação de relatórios e apresentação clara de informações.",
+            verbose=True,
             tools=[report_generation_tool],
             llm=gpt_model
-        )      
-          
+        )
+        
+   
     }
+    
     return agents

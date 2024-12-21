@@ -1,8 +1,8 @@
 # Relatório da Transcrição
 ## Resumo
-O texto apresentado para análise discute tópicos como inteligência, consciência, evolução, teorias da sobrevivência do mais apto e altruísmo recíproco.
+Dado o conteúdo do texto e a análise manual feita, não parece haver quaisquer sinais de linguagem tóxica ou inapropriada. O texto é focado em insights e análises de tópicos relacionados à biologia comportamental e psicologia, e mantém um tom educado e respeitável ao longo da conversa.
 
 ## Insights
-Não há linguagem tóxica ou inapropriada presente no texto. Portanto, não são necessárias recomendações para melhorar a comunicação neste caso.
+No entanto, deve-se notar que devido a um problema técnico, a ferramenta de análise de toxicidade não pôde ser aplicada neste caso.
 
 # Fim do Relatório

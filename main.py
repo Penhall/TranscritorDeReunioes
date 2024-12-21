@@ -12,7 +12,7 @@ from langchain_openai import ChatOpenAI
 import os
 
 # Importando as definições modularizadas
-from transcritor.agents.agent_definitions import create_agents
+from transcritor.agents.agent_definitions6 import create_agents
 from transcritor.tasks.task_definitions import create_tasks
 
 # Carregar as variáveis de ambiente do arquivo .env
